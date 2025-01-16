@@ -12,14 +12,27 @@
 		"ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
 		"ghcr.io/rocker-org/devcontainer-features/renv-cache:0": {}
 	},
+	// Mount any required external folders
+	// "mounts": [
+	// 	"type=bind,source=</path/to/localdir>,target=/workspaces/data"
+	// ],
+	"runArgs": [
+		"--user",
+		"${localEnv:UID}:${localEnv:GID}"
+	],
+	"remoteEnv": {
+		"UID": "${localEnv:UID}",
+		"GID": "${localEnv:GID}"
+	},
+	"postCreateCommand": "sudo chmod 1777 /usr/local/share/rocker-devcontainer-features/rstudio-server/data",
 	"postAttachCommand": {
-		"rstudio-start": "rserver"
+		"rstudio-start": "rserver --www-port 8686"
 	},
 	"forwardPorts": [
-		"8686:8787"
+		8686
 	],
 	"portsAttributes": {
-		"8787": {
+		"8686": {
 			"label": "RStudio IDE"
 		}
 	}
