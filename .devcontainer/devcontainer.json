@@ -16,7 +16,7 @@
 		"rstudio-start": "rserver"
 	},
 	"forwardPorts": [
-		8787
+		"8686:8787"
 	],
 	"portsAttributes": {
 		"8787": {
