@@ -1,9 +1,20 @@
 {
-	"name": "R Development Environment",
-	"build": {
-		"dockerfile": "../dockerfile"
+	// from https://github.com/rocker-org/devcontainer-try-r
+	"name": "Combination of r-rig and rstudio-server",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	// from https://github.com/rocker-org/devcontainer-features/tree/main
+	"features": {
+		"ghcr.io/rocker-org/devcontainer-features/r-rig:1": {
+			"version": "release"
+		},
+		"ghcr.io/rocker-org/devcontainer-features/rstudio-server:0": {},
+		"ghcr.io/rocker-org/devcontainer-features/miniforge:2": {},
+		"ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
+		"ghcr.io/rocker-org/devcontainer-features/renv-cache:0": {}
 	},
-	"postAttachCommand": "sudo service rstudio-server start",
+	"postAttachCommand": {
+		"rstudio-start": "rserver"
+	},
 	"forwardPorts": [
 		8787
 	],
@@ -11,8 +22,5 @@
 		"8787": {
 			"label": "RStudio IDE"
 		}
-	},
-	"remoteEnv": {
-		"PASSWORD": "password"
 	}
 }
